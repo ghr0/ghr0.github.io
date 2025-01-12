@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GHR's Nav</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+<!--字体和图标-->
+<link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/lxgwwenkai-bold.css">
+<link rel="icon" href="https://fyh2016cjcj.oss-cn-hangzhou.aliyuncs.com/emkt-video/ghr/nav.png" type="image/png">
+<style type="text/css">
+*{font-family:LXGW WenKai}
+*{font-weight:bold}
+body {font-family: LXGW WenKai;}
+</style>
+
+    <style>
+        /* 基础样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa, #e0e0e0); /* 渐变浅灰背景 */
+            color: #333;
+            transition: background 0.5s ease, color 0.5s ease;
+            overflow-x: hidden; /* 禁止左右滑动 */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center; /* 主元素居中 */
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 0px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: #363636;
+            animation: fadeIn 0.7s ease-in-out;
+        }
+
+        /* 搜索栏样式 */
+        .search-bar {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-bar input {
+            width: 90%; /* 使用百分比宽度 */
+            max-width: 600px; /* 最大宽度 */
+            padding: 12px 15px; /* 调整高度 */
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .search-bar input:focus {
+            border-color: #808080; /* 点击后边框颜色 */
+        }
+
+        .nav-grid {
+            display: grid;         
+            gap: 5px;
+        }
+
+        .nav-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0; /* 初始隐藏 */
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-card i {
+            font-size: 3rem;
+            margin-bottom: 0px; /* 缩小图标与板块名称间距 */
+            color: #333; /* 图标颜色始终为黑色 */
+        }
+
+        .nav-card h2 {
+            font-size: 1.45rem;
+            margin-bottom: 10px;
+            color: #363636;
+        }
+
+        .nav-card a {
+            text-decoration: none;
+            color: #333;
+            background: #f0f0f0; /* 灰色背景 */
+            border: 1px solid #ccc; /* 边框 */
+            border-radius: 20px; /* 圆角 */
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            transition: background 0.3s ease, color 0.3s ease;
+            display: inline-block; /* 热区由内容决定 */
+            margin: 5px; /* 按钮间距 */
+        }
+
+        .nav-card a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;    
+            color: #696969;
+        }
+
+        /* 夜间模式样式 */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1e1e1e, #121212); /* 黑色渐变背景 */
+            color: #e0e0e0;
+        }
+
+        body.dark-mode header h1 {
+            color: #f6f6f6;
+        }
+      
+        body.dark-mode .nav-card {
+            background: #222; /* 深灰色卡片 */
+            color: #e0e0e0;
+        }
+      
+        body.dark-mode .nav-card h2 {
+            color: #fff;
+        }
+
+        body.dark-mode .nav-card a {
+          background: #333;
+            color: #e0e0e0; /* 夜间模式文字颜色 */
+        }
+
+        body.dark-mode .nav-card i {
+            color: #f4f4f4; /* 夜间模式图标颜色为白色 */
+        }
+
+        body.dark-mode .search-bar input {
+            background: #2d2d2d;
+            border-color: #444;
+            color: #e0e0e0;
+        }
+
+        /* 侧边栏样式 */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px; /* 默认隐藏 */
+            width: 250px;
+            height: 100%;
+            background: #ffffff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            left: 0; /* 显示侧边栏 */
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar ul li i {
+            margin-right: 10px; /* 图标与文字间距 */
+            color: #333; /* 图标颜色 */
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .sidebar ul li a:hover {
+            color: #000;
+        }
+
+        body.dark-mode .sidebar {
+            background: #2d2d2d; /* 夜间模式侧边栏背景 */
+        }
+
+        body.dark-mode .sidebar ul li a {
+            color: #e0e0e0; /* 夜间模式侧边栏文字颜色 */
+        }
+
+        body.dark-mode .sidebar ul li i {
+            color: #f4f4f4; /* 夜间模式图标颜色 */
+        }
+
+        /* 侧边栏按钮样式 */
+        .sidebar-toggle {
+            position: absolute;
+            top: 0px; 
+            left: 0px; 
+            background: none;
+            color: #333; /* 图标颜色始终为黑色 */
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            font-size: 1.5rem;
+            transition: opacity 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .sidebar-toggle.hide {
+            opacity: 0; /* 隐藏按钮 */
+            pointer-events: none; /* 禁止点击 */
+        }
+
+        .sidebar-toggle:hover {
+            color: #333; /* 悬停不变色 */
+        }
+
+        body.dark-mode .sidebar-toggle {
+            color: #e0e0e0; /* 夜间模式图标颜色为白色 */
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 夜间模式切换按钮 */
+        .theme-toggle {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: #333; /* 黑色 */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease;
+            z-index: 1001;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .theme-toggle:hover {
+            background: #555; /* 深灰色 */
+        }
+
+        body.dark-mode .theme-toggle {
+            background: #e0e0e0; /* 白色 */
+            color: #333;
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background: #ccc; /* 浅灰色 */
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 延迟动画 */
+        .nav-card:nth-child(1) { animation-delay: 0.2s; }
+        .nav-card:nth-child(2) { animation-delay: 0.4s; }
+        .nav-card:nth-child(3) { animation-delay: 0.6s; }
+        .nav-card:nth-child(4) { animation-delay: 0.8s; }
+        .nav-card:nth-child(5) { animation-delay: 1s; }
+        .nav-card:nth-child(6) { animation-delay: 1.2s; }
+        .nav-card:nth-child(7) { animation-delay: 1.4s; }
+        .nav-card:nth-child(8) { animation-delay: 1.6s; }
+    </style>
+
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li>
+                <i class="material-icons">info</i>
+                <a href="about.html"><b>关于我们</b></a>
+            </li>
+            <li>
+                <i class="material-icons">email</i>
+                <a href="mailto:gau0130h@gmail.com"><b>联系邮箱</b></a>
+            </li>
+            <li>
+                <i class="material-icons">help</i>
+                <a href="#"><b>帮助中心</b></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 侧边栏遮罩 -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- 侧边栏按钮 -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="material-icons">menu</i>
+    </button>
+
+    <!-- 夜间模式切换按钮 -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="material-icons">dark_mode</i>
+    </button>
+<br>
+    <div class="container">
+        <header>
+            <h1>GHR 导航</h1>
+        </header>
+        <!-- 搜索栏 -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="输入搜索内容，回车搜索">
+        </div>
+        <div class="nav-grid">
+            <!-- 站内 -->
+            <div class="nav-card">
+                <i class="material-icons icon-home">home</i>
+                <h2>站内</h2>
+                <a href="qrcode.html" target="_blank">二维码生成器</a>
+                <a href="calculator.html" target="_blank">计算器</a>
+                <a href="repeat.html" target="_blank">重复文本生成器</a>
+                <a href="aigc.html" target="_blank">ChatGPT</a>
+            </div>
+          <br>
+            <!-- 书籍 -->
+            <div class="nav-card">
+                <i class="material-icons icon-book">menu_book</i>
+                <h2>书籍</h2>
+                <a href="https://www.iyd.wang/" target="_blank">爱悦读网</a>
+                <a href="https://www.ershu.org/" target="_blank">尔书网</a>
+                <a href="https://book.daohangxie.com/" target="_blank">24H 搜书</a>
+                <a href="https://memo.bookfere.com/" target="_blank">书见</a>
+                <a href="https://m.kepub.net/" target="_blank">可阅文学网</a>
+                <a href="https://ibooks.org.cn/" target="_blank">读书小站</a>
+                <a href="https://bqg123.net/" target="_blank">小说书库</a>
+                <a href="https://toepub.com/zh/" target="_blank">电子书格式转换</a>
+            </div>
+<br>
+            <!-- 新闻 -->
+            <div class="nav-card">
+                <i class="material-icons icon-news">article</i>
+                <h2>新闻</h2>
+                <a href="https://zeli.app/zh" target="_blank">Zeli</a>
+                <a href="https://m.52vmy.cn/" target="_blank">每日日报</a>
+                <a href="https://www.hsmy.fun/news/list" target="_blank">浑水热榜</a>
+                <a href="https://smzdk.top/#/" target="_blank">什么值得看</a>
+                <a href="https://news.aolifu.org/" target="_blank">刷一下</a>
+                <a href="https://suzhi.fun/#/" target="_blank">速知吧</a>
+                <a href="https://rrorangeandfriends.site/" target="_blank">大橘周刊</a>
+
+            </div>
+<br>
+
+            <!-- 工具 -->
+            <div class="nav-card">
+                <i class="material-icons icon-tools">build</i>
+                <h2>工具</h2>
+                <a href="https://lddgo.net" target="_blank">在线工具</a>
+                <a href="https://ol.woobx.cn/" target="_blank">一个木函</a>
+                <a href="https://tools.miku.ac/" target="_blank">MikuTools</a>
+                <a href="https://bigjpg.com/" target="_blank">AI图片放大</a>
+                <a href="https://4275.com/" target="_blank">文件中转</a>
+                <a href="https://ir1.cn/" target="_blank">星空短链</a>
+                <a href="https://mail.td/zh" target="_blank">临时邮箱</a>
+                <a href="https://ezpic.fun/zh" target="_blank">AI抠图</a>
+                <a href="https://note.re" target="_blank">一次性记事本</a>
+                <a href="https://www.json.cn/run/html5/" target="_blank">HTML 在线运行</a>
+                <a href="https://www.xiazaitool.com/" target="_blank">下载狗</a>
+                <a href="http://music.zxiyun.com/" target="_blank">音乐搜索器</a>
+                <a href="https://api.vvhan.com/" target="_blank">免费API</a>
+            </div>
+<br>
+            <!-- 素材 -->
+            <div class="nav-card">
+                <i class="material-icons icon-resources">image</i>
+                <h2>素材</h2>
+                <a href="https://taira-komori.jpn.org/freesoundcn.html" target="_blank">免费音效</a>
+                <a href="https://vectorcraftr.com" target="_blank">SVG插画</a>
+                <a href="https://www.pikpng.com" target="_blank">PikPng</a>
+                <a href="https://pixabay.com" target="_blank">Pixabay</a>
+                <a href="https://unsplash.com/" target="_blank">Unsplash</a>
+                <a href="https://www.stickpng.com/zh/" target="_blank">StickPNG</a>
+                <a href="https://www.fontsquirrel.com/" target="_blank">松鼠字体</a>
+                <a href="https://www.iconfont.cn/" target="_blank">IconFont</a>
+                <a href="https://www.logosfind.com/" target="_blank">LogosFind</a>
+                <a href="https://stocksnap.io/" target="_blank">StockSnap</a>
+            </div>
+<br>
+            <!-- 游戏 -->
+            <div class="nav-card">
+                <i class="material-icons icon-games">sports_esports</i>
+                <h2>游戏</h2>
+<a add_date="1730609759" href="http://jlh.125ks.cn/cxk/" target="_blank">飞机大战</a>
+        <a add_date="1730609813" href="http://jlh.125ks.cn/cxk/dinogame/?utm_source=xinquji" target="_blank">跳跳乐</a>
+       <a add_date="1736139961" href="http://jlh.125ks.cn/cxk/ikmn/" target="_blank">摇摇乐</a>
+        <a add_date="1735443117" href="http://jilehe.125ks.cn/pbj/" target="_blank">跑步鸡</a>
+        <a add_date="1736139915" href="http://jlh.125ks.cn/cxk/bccxk/" target="_blank">音游</a>
+      <a add_date="1736139886" href="http://jilehe.125ks.cn/tou/" target="_blank">投篮</a>
+        <a add_date="1735443287" href="https://desk.glitchy.website/" target="_blank">Desktop</a>
+      <a add_date="1735443560" href="https://sandspiel.club/" target="_blank">沙盘</a>
+<a href="http://minesweeper.cn/" target="_blank">扫雷</a>
+<a href="https://xingye.me/game/xsxn/index.html" target="_blank">像素鸟</a>
+            </div>
+     <br>     
+                        <!--  影音 -->
+            <div class="nav-card">
+<i class="material-icons">music_note</i>
+                <h2>影音</h2>
+                <a href="http://mc.alger.fun/#/list" target="_blank">网抑云</a>
+                <a href="https://qingyinyue.club/" target="_blank">轻音乐俱乐部</a>
+                <a href="https://tool.liumingye.cn/music" target="_blank">MyFreeMp3</a>
+                <a href="https://komiic.com/" target="_blank">Komiic</a>
+                <a href="https://www.hdmoli.pro/" target="_blank">HDmoli</a>
+                <a href="https://soupian.one" target="_blank">搜片</a>
+                <a href="https://xlys01.com" target="_blank">免费影视</a>
+                <a href="https://www.yymanhua.com/" target="_blank">YY 漫画</a>
+                <a href="https://m.agedm.org/" target="_blank">AGE 动漫</a>
+            </div>
+<br>
+<!--  网络 -->
+            <div class="nav-card">
+                <i class="material-icons icon-internet ">public</i>
+                <h2>网络</h2>
+                <a href="https://sspai.com" target="_blank">少数派</a>
+                <a href="https://www.cloudflare.com" target="_blank">Cloudflare</a>
+                <a href="https://yandex.ee" target="_blank">Yandex</a>
+                <a href="http://2git.xyz/" target="_blank">Github</a>
+                <a href="http://www.pixiv.net/" target="_blank">Pixiv</a>
+                <a href="https://v2ex.com/" target="_blank">V2EX</a>
+                <a href="https://greasyfork.org/zh-CN" target="_blank">Greasy Fork</a>
+            </div>
+          <br>
+            <!-- 人工智能 -->
+            <div class="nav-card">
+                <i class="material-icons icon-ai">smart_toy</i>
+                <h2>人工智能</h2>
+                <a href="https://hailuoai.com" target="_blank">海螺AI</a>
+                <a href="https://www.doubao.com" target="_blank">豆包</a>
+                <a href="https://chat.deepseek.com" target="_blank">DeepSeek</a>
+                <a href="https://felo.ai" target="_blank"> Felo.ai</a>
+                <a href="https://chat.sensetime.com/" target="_blank">商量商汤大模型</a>
+                <a href="https://datong.info" target="_blank">大同</a>             
+                <a href="https://gemini.u14.app/" target="_blank">Gemini</a>
+                <a href="https://hika.fyi/" target="_blank">Hika</a>
+                <a href="https://www.wenxiaobai.com/chat/" target="_blank">问小白</a>
+                <a href="https://askmanyai.cn/" target="_blank">AskManyAI</a>
+                <a href="https://yuewen.cn/chats/new" target="_blank">跃问</a>
+            </div>
+        </div>
+        <footer>
+            <p>&copy; 2024 GHR's Nav beta</p>         
+        </footer>
+    </div>
+
+    <script>
+        // 侧边栏逻辑
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const overlay = document.getElementById('overlay');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            sidebarToggle.style.display = 'none'; // 隐藏侧边栏按钮
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            sidebarToggle.style.display = 'flex'; // 显示侧边栏按钮
+        });
+
+        // 夜间模式切换
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            if (body.classList.contains('dark-mode')) {
+                icon.textContent = 'light_mode'; // 切换到太阳图标
+            } else {
+                icon.textContent = 'dark_mode'; // 切换到月亮图标
+            }
+        });
+
+        // 回车键搜索功能
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.open(`https://datong.info/ui/search.html?q=${encodeURIComponent(query)}`, '_blank');
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>
