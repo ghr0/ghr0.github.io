@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/lxgwwenkai-bold.css">
+    <link rel="icon" href="https://fyh2016cjcj.oss-cn-hangzhou.aliyuncs.com/emkt-video/ghr/text.png" type="image/png">
+    <style type="text/css">
+    *{font-family:LXGW WenKai}
+    *{font-weight:bold}
+    body {font-family: LXGW WenKai;}
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Repeator - GHR's Nav</title>
+    <link rel="icon" href="" type="image/png">
+    <style>
+        /* 基本样式 */
+        * {            
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .main {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #363636;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            color: #363636;
+            animation: fadeInLabel 1s ease-in-out;
+        }
+
+        input[type="text"], input[type="range"], button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2em;
+            border: 2px solid #363636;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus, input[type="range"]:focus, button:focus {
+            border:1px solid #161616;
+            outline: none;
+        }
+
+        button {
+            background-color: #363636;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #161616;
+        }
+
+        #outputTextEl {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            word-wrap: break-word;
+            animation: fadeInText 1s ease-in-out;
+            font-size: 1.2em;
+            min-height: 50px;
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInLabel {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 响应设计 */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            label, input, button, #outputTextEl {
+                font-size: 1em;
+            }
+        }
+    </style>
+<style>html,*{-webkit-user-select:text!important;}</style></head>
+<body>
+    <div class="main">
+        <h1>重复文字生成器</h1>
+        <label for="inputTextEl">要重复的文字</label>
+        <input type="text" id="inputTextEl" placeholder="请输入..">
+        <label for="repeatCountEl">重复次数: <b id="repeatCountNumEl">4</b></label>
+        <input type="range" id="repeatCountEl" min="1" max="100" step="1" value="4" oninput="setRepeatCount(repeatCountEl.value)">
+        <button onclick="generateText()" id="generateBtnEl">点击生成</button>
+        <p id="outputTextEl"></p>
+    </div>
+
+    <script>
+        let timer;
+        function generateText() {
+            const text = inputTextEl.value.trim() || '';
+            const repeatCount = +repeatCountEl.value || 1;
+            const result = text.repeat(repeatCount);
+            outputTextEl.textContent = result;
+            outputTextEl.classList.add('animate__animated', 'animate__fadeIn');
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                outputTextEl.classList.remove('animate__animated', 'animate__fadeIn');
+            }, 1000);
+        }
+
+        function setRepeatCount(value) {
+            repeatCountNumEl.textContent = value;
+        }
+    </script>
+
+</body></html>
