@@ -58,7 +58,7 @@ body {font-family: LXGW WenKai;}
             font-size: 1rem;
             outline: none;
             transition: border-color 0.3s ease;
-            animation: fadeIn 0.6s ease forwards;
+            animation: fadeInUp 0.9s ease forwards;
         }
 
         .search-bar input:focus {
@@ -112,7 +112,35 @@ body {font-family: LXGW WenKai;}
         }
 
         .nav-card a:hover {
-            text-decoration: underline;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: grid;     
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 10px;
+            font-size: 0.9rem;
+            transition: background 0.3s ease, color 0.3s ease;
+            display: block;
+        }
+      
+        .nav-links a:hover {
+            background: #e0e0e0;
+        }
+
+        .nav-links a span {
+            display: block;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
         }
 
         footer {
@@ -154,6 +182,10 @@ body {font-family: LXGW WenKai;}
             border-color: #444;
             color: #e0e0e0;
         }
+        
+		body.dark-mode .nav-links a span {
+			color: #fff;
+		}
 
         /* 侧边栏样式 */
         .sidebar {
@@ -213,29 +245,29 @@ body {font-family: LXGW WenKai;}
 
         /* 侧边栏按钮样式 */
         .sidebar-toggle {
-            position: absolute;
-            top: 0px; 
-            left: 0px; 
-            background: none;
-            color: #333; /* 图标颜色始终为黑色 */
+            position: fixed;
+            top: 55%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: #333;
+            color: white;
             border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease;
             z-index: 1001;
-            font-size: 1.5rem;
-            transition: opacity 0.3s ease;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.9s ease;
         }
 
         .sidebar-toggle.hide {
             opacity: 0; /* 隐藏按钮 */
             pointer-events: none; /* 禁止点击 */
-        }
-
-        .sidebar-toggle:hover {
-            color: #333; /* 悬停不变色 */
         }
 
         body.dark-mode .sidebar-toggle {
@@ -263,7 +295,7 @@ body {font-family: LXGW WenKai;}
         /* 夜间模式切换按钮 */
         .theme-toggle {
             position: fixed;
-            top: 50%;
+            top: 45%;
             right: 20px;
             transform: translateY(-50%);
             background: #333; /* 黑色 */
@@ -279,13 +311,22 @@ body {font-family: LXGW WenKai;}
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: background 0.3s ease;
             z-index: 1001;
-            animation: fadeIn 0.6s ease;
+            animation: fadeIn 0.9s ease;
         }
 
         .theme-toggle:hover {
             background: #555; /* 深灰色 */
         }
 
+        body.dark-mode .sidebar-toggle {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        body.dark-mode .sidebar-toggle:hover {
+            background: #ccc;
+        }
+      
         body.dark-mode .theme-toggle {
             background: #e0e0e0; /* 白色 */
             color: #333;
@@ -330,19 +371,51 @@ body {font-family: LXGW WenKai;}
 </head>
 <body>
     <!-- 侧边栏 -->
-    <div class="sidebar" id="sidebar">
+   <div class="sidebar" id="sidebar">
         <ul>
             <li>
                 <i class="material-icons">info</i>
-                <a href="about.html"><b>关于我们</b></a>
+                <a href="about.html"><b>关于</b></a>
             </li>
             <li>
                 <i class="material-icons">email</i>
-                <a href="mailto:gau0130h@gmail.com"><b>联系邮箱</b></a>
+                <a href="mailto:gau0130h@gmail.com"><b>邮箱</b></a>
+            </li>
+<br>
+            <li>
+                <i class="material-icons">home</i>
+                <a href="#home">站内</a>
             </li>
             <li>
-                <i class="material-icons">help</i>
-                <a href="#"><b>帮助中心</b></a>
+                <i class="material-icons">menu_book</i>
+                <a href="#books">书籍</a>
+            </li>
+            <li>
+                <i class="material-icons">article</i>
+                <a href="#news">新闻</a>
+            </li>
+            <li>
+                <i class="material-icons">build</i>
+                <a href="#tools">工具</a>
+            </li>
+            <li>
+                <i class="material-icons">image</i>
+                <a href="#resources">素材</a>
+            </li>
+            <li>
+                <i class="material-icons">sports_esports</i>
+                <a href="#games">游戏</a>
+            </li>
+            <li>
+                <i class="material-icons">music_note</i>
+                <a href="#music">影音</a>
+            <li>
+                <i class="material-icons">public</i>
+                <a href="#internet">网络</a>
+            </li>
+            <li>
+                <i class="material-icons">smart_toy</i>
+                <a href="#ai">人工智能</a>
             </li>
         </ul>
     </div>
@@ -370,146 +443,169 @@ body {font-family: LXGW WenKai;}
         </div>
         <div class="nav-grid">
             <!-- 站内 -->
-            <div class="nav-card">
+            <div class="nav-card" id="home">
                 <i class="material-icons icon-home">home</i>
                 <h2>站内</h2>
-                <a href="qrcode.html" target="_blank">二维码生成器</a>
-                <a href="calculator.html" target="_blank">计算器</a>
-                <a href="repeat.html" target="_blank">重复文本生成器</a>
-                <a href="aigc.html" target="_blank">ChatGPT</a>
+                <div class="nav-links">
+                <a href="qrcode.html" target="_blank">二维码生成器<span>输入文字，快速生成二维码</span></a>
+                <a href="calculator.html" target="_blank">计算器<span>简洁美观的计算器，可能有bug</a>
+                <a href="repeat.html" target="_blank">Re-text<span>输入文字，选择倍数，选中复制！</a>
+                <a href="aigc.html" target="_blank">ChatGPT<span>本站的不同大模型接口，目前正在重写</a>
+                </div>
             </div>
           <br>
             <!-- 书籍 -->
-            <div class="nav-card">
+            <div class="nav-card" id="books">
                 <i class="material-icons icon-book">menu_book</i>
                 <h2>书籍</h2>
-                <a href="https://www.iyd.wang/" target="_blank">爱悦读网</a>
-                <a href="https://www.ershu.org/" target="_blank">尔书网</a>
-                <a href="https://book.daohangxie.com/" target="_blank">24H 搜书</a>
-                <a href="https://memo.bookfere.com/" target="_blank">书见</a>
-                <a href="https://m.kepub.net/" target="_blank">可阅文学网</a>
-                <a href="https://ibooks.org.cn/" target="_blank">读书小站</a>
-                <a href="https://bqg123.net/" target="_blank">小说书库</a>
-                <a href="https://toepub.com/zh/" target="_blank">电子书格式转换</a>
+                <div class="nav-links">
+                <a href="https://www.iyd.wang/" target="_blank">爱悦读网<span>免费城通网盘书籍资源</a>
+                <a href="https://www.ershu.org/" target="_blank">尔书网<span>免费书籍下载，资源全面</span></a>
+                <a href="https://book.daohangxie.com/" target="_blank">24H 搜书<span>电子书下载站，速度较慢</span></a>
+                <a href="https://memo.bookfere.com/" target="_blank">书见<span>阅读分享、好句摘抄（无资源）</span></a>
+                <a HREF="https://xiayibendushenme.com/" target="_blank">下一本读什么<span>优质书单推荐（无资源）</span></A>
+                <a href="https://m.kepub.net/" target="_blank">可阅文学网<span>在线阅读各类书籍</span></a>
+                <a href="https://ibooks.org.cn/" target="_blank">读书小站<span>百度网盘书籍下载</span></a>
+                <a href="https://bqg123.net/" target="_blank">小说书库<span>免费小说在线阅读</span></a>
+                <a href="https://toepub.com/zh/" target="_blank">电子书格式转换<span>在线转换pdf,epub,txt等格式</a>
+            </div>
             </div>
 <br>
             <!-- 新闻 -->
-            <div class="nav-card">
+            <div class="nav-card" id="news">
                 <i class="material-icons icon-news">article</i>
                 <h2>新闻</h2>
-                <a href="https://zeli.app/zh" target="_blank">Zeli</a>
-                <a href="https://m.52vmy.cn/" target="_blank">每日日报</a>
-                <a href="https://www.hsmy.fun/news/list" target="_blank">浑水热榜</a>
-                <a href="https://smzdk.top/#/" target="_blank">什么值得看</a>
-                <a href="https://news.aolifu.org/" target="_blank">刷一下</a>
-                <a href="https://suzhi.fun/#/" target="_blank">速知吧</a>
-                <a href="https://rrorangeandfriends.site/" target="_blank">大橘周刊</a>
+                <div class="nav-links">
+                <a href="https://zeli.app/zh" target="_blank">Zeli<span>中文IT新闻</span></a>
+                <a href="https://m.52vmy.cn/" target="_blank">每日日报<span>每日重点新闻&每日一句</span></a>
+                <a href="https://www.hsmy.fun/news/list" target="_blank">浑水热榜<span>各大平台搜索热点聚合</span></a>
+                <a href="https://smzdk.top/#/" target="_blank">什么值得看<span>简洁明了的新闻聚合</a>
+                <a href="https://news.aolifu.org/" target="_blank">刷一下<span>各大平台每日热榜</span></a>
+                <a href="https://suzhi.fun/#/" target="_blank">速知吧<span>各大平台每日热榜</span></a>
 
+</div>
             </div>
 <br>
 
             <!-- 工具 -->
-            <div class="nav-card">
+            <div class="nav-card" id="tools">
                 <i class="material-icons icon-tools">build</i>
                 <h2>工具</h2>
-                <a href="https://lddgo.net" target="_blank">在线工具</a>
-                <a href="https://ol.woobx.cn/" target="_blank">一个木函</a>
-                <a href="https://tools.miku.ac/" target="_blank">MikuTools</a>
-                <a href="https://bigjpg.com/" target="_blank">AI图片放大</a>
-                <a href="https://4275.com/" target="_blank">文件中转</a>
-                <a href="https://ir1.cn/" target="_blank">星空短链</a>
-                <a href="https://mail.td/zh" target="_blank">临时邮箱</a>
-                <a href="https://ezpic.fun/zh" target="_blank">AI抠图</a>
-                <a href="https://note.re" target="_blank">一次性记事本</a>
-                <a href="https://www.json.cn/run/html5/" target="_blank">HTML 在线运行</a>
-                <a href="https://www.xiazaitool.com/" target="_blank">下载狗</a>
-                <a href="http://music.zxiyun.com/" target="_blank">音乐搜索器</a>
-				<A HREF="https://manga-translate.com/" target="_blank">漫画翻译器</A>
-                <a href="https://api.vvhan.com/" target="_blank">免费API</a>
+                <div class="nav-links">
+                <a href="https://lddgo.net" target="_blank">Iddgo<span>在线工具大全</span></a>
+                <a href="https://ol.woobx.cn/" target="_blank">一个木函<span>美丽快捷的在线工具</span></a>
+                <a href="https://tools.miku.ac/" target="_blank">MikuTools<span>小工具集合</span></a>
+                <a href="https://bigjpg.com/" target="_blank">BIGJPG<span>AI图片无损放大</span></a>
+                <a HREF="https://share.lanol.cn/#/send" target="_blank">FileCodeBox<span>快捷免费的匿名文件共享服务</span></A>
+                <a href="https://4275.com/" target="_blank">4275.com<span>文件中转</span></a>
+                <a href="https://ir1.cn/" target="_blank">星空短链<span>短链接服务，支持自定义</a>
+                <a href="https://mail.td/zh" target="_blank">Mail.td<span>好用的临时邮箱</span></a>
+                <a href="https://ezpic.fun/zh" target="_blank">Ezpic<span>AI扣图</span></a>
+                <a href="https://note.ms" target="_blank">Note.ms<SPAN>一次性记事本</SPAN></a>
+                <a href="https://www.json.cn/run/html5/" target="_blank">HTML 在线运行<span>如题，在线运行HTML代码</a>
+                <a href="https://www.xiazaitool.com/" target="_blank">下载狗<span>解析网站中的视频并下载</span></a>
+                <a href="http://music.zxiyun.com/" target="_blank">音乐搜索器<span>解析不同源的音乐并下载</span></a>
+				<A HREF="https://manga-translate.com/" target="_blank">漫画翻译器<span>上传漫画，自动机翻</span></A>
+                <a href="https://api.vvhan.com/" target="_blank">免费API<span>提供丰富的API借口，免费调用</span></a>
+            </div>
             </div>
 <br>
             <!-- 素材 -->
-            <div class="nav-card">
+            <div class="nav-card" id="resources">
                 <i class="material-icons icon-resources">image</i>
                 <h2>素材</h2>
-                <a href="https://taira-komori.jpn.org/freesoundcn.html" target="_blank">免费音效</a>
-                <a href="https://vectorcraftr.com" target="_blank">SVG插画</a>
-                <a href="https://www.pikpng.com" target="_blank">PikPng</a>
-                <a href="https://pixabay.com" target="_blank">Pixabay</a>
-                <a href="https://unsplash.com/" target="_blank">Unsplash</a>
-                <a href="https://www.stickpng.com/zh/" target="_blank">StickPNG</a>
-                <a href="https://www.fontsquirrel.com/" target="_blank">松鼠字体</a>
-                <a href="https://www.iconfont.cn/" target="_blank">IconFont</a>
-                <a href="https://www.logosfind.com/" target="_blank">LogosFind</a>
-                <a href="https://stocksnap.io/" target="_blank">StockSnap</a>
-				<A HREF="https://cocomaterial.com/" target="_blank">CocoMaterial</A>
+                <div class="nav-links">
+                <a href="https://taira-komori.jpn.org/freesoundcn.html" target="_blank">免费音效<span>日本友人提供的免费音效</span></a>
+                <a href="https://vectorcraftr.com" target="_blank">Vectorcraftr<span>免费下载SVG素材，七百多张</span></a>
+                <a href="https://www.pikpng.com" target="_blank">PikPng<span>免费下载PNG图片素材</span></a>
+                <a href="https://pixabay.com" target="_blank">Pixabay<span>国外超大的无版权图片网站</span></a>
+                <a href="https://unsplash.com/" target="_blank">Unsplash<span>国外的高质量摄影素材网站</span></a>
+                <a href="https://www.stickpng.com/zh/" target="_blank">StickPNG<span>免费PNG素材库</span></a>
+                <a href="https://www.fontsquirrel.com/" target="_blank">FontSquirrel<span>免费英文字体</span></a>
+                <a HREF="https://yesicon.app/" target="_blank">Yesicon<span>精选高质量图标</span></A>
+                <a href="https://www.logosfind.com/" target="_blank">LogosFind<span>各大企业的高清商标</span></a>
+                <a href="https://stocksnap.io/" target="_blank">StockSnap<span>摄影素材网站</span></a>
+				<A HREF="https://cocomaterial.com/" target="_blank">CocoMaterial<span>国外综合型素材网站</span></A>
+                <a HREF="https://vavebg.com/" target="_blank">Vave BG<span>AI生成的无版权图片，可商用</span></A>
+                <a HREF="https://snake.timeline.ink/" target="_blank">拾光壁纸<span>简单纯粹的壁纸网站</span></A>
+            </div>
             </div>
 <br>
             <!-- 游戏 -->
-            <div class="nav-card">
+            <div class="nav-card" id="games">
                 <i class="material-icons icon-games">sports_esports</i>
                 <h2>游戏</h2>
-<a add_date="1730609759" href="http://jlh.125ks.cn/cxk/" target="_blank">飞机大战</a>
-        <a add_date="1730609813" href="http://jlh.125ks.cn/cxk/dinogame/?utm_source=xinquji" target="_blank">跳跳乐</a>
-       <a add_date="1736139961" href="http://jlh.125ks.cn/cxk/ikmn/" target="_blank">摇摇乐</a>
-        <a add_date="1735443117" href="http://jilehe.125ks.cn/pbj/" target="_blank">跑步鸡</a>
-        <a add_date="1736139915" href="http://jlh.125ks.cn/cxk/bccxk/" target="_blank">音游</a>
-      <a add_date="1736139886" href="http://jilehe.125ks.cn/tou/" target="_blank">投篮</a>
-        <a add_date="1735443287" href="https://desk.glitchy.website/" target="_blank">Desktop</a>
-      <a add_date="1735443560" href="https://sandspiel.club/" target="_blank">沙盘</a>
-<a href="http://minesweeper.cn/" target="_blank">扫雷</a>
-<a href="https://xingye.me/game/xsxn/index.html" target="_blank">像素鸟</a>
+                <div class="nav-links">
+                <a HREF="https://zaixianwan.app/" target="_blank">老游戏<span>在线体验八零年代的怀旧游戏</span></A>
+<a add_date="1730609759" href="http://jlh.125ks.cn/cxk/" target="_blank">飞机大战<span>cxk大战飞机</span></a>
+        <a add_date="1730609813" href="http://jlh.125ks.cn/cxk/dinogame/?utm_source=xinquji" target="_blank">跳跳乐<span>cxk版的谷歌小恐龙</span></a>
+       <a add_date="1736139961" href="http://jlh.125ks.cn/cxk/ikmn/" target="_blank">摇摇乐<span>cxk摇一摇</a>
+        <a add_date="1735443117" href="http://jilehe.125ks.cn/pbj/" target="_blank">跑步鸡<span>cxk跑酷游戏</span></a>
+        <a add_date="1736139915" href="http://jlh.125ks.cn/cxk/bccxk/" target="_blank">音游<span>cxk音游</span></a>
+      <a add_date="1736139886" href="http://jilehe.125ks.cn/tou/" target="_blank">投篮<span>cxk投篮，长按为哥哥畜力</span></a>
+        <a add_date="1735443287" href="https://desk.glitchy.website/" target="_blank">Desktop<span>桌面模拟器，内置各种小游戏</span></a>
+      <a add_date="1735443560" href="https://sandspiel.club/" target="_blank">沙盘<span>像素沙盒小游戏，尽情发挥创造力</span></a>
+<a href="http://minesweeper.cn/" target="_blank">Minesweeper<span>经典的扫雷游戏，风靡一时</span></a>
+<a href="https://xingye.me/game/xsxn/index.html" target="_blank">FlappyBird<span>让人血压升高的像素小鸟</a>
+            </div>
             </div>
      <br>     
-                        <!--  影音 -->
-            <div class="nav-card">
+            <!--  影音 -->
+            <div class="nav-card" id="music">
 <i class="material-icons">music_note</i>
                 <h2>影音</h2>
-                <a href="http://mc.alger.fun/#/list" target="_blank">网抑云</a>
-                <a href="https://qingyinyue.club/" target="_blank">轻音乐俱乐部</a>
-				<A HREF="https://www.maokan.cc/#header" target="_blank">猫看白噪音</A>
-                <a href="https://tool.liumingye.cn/music" target="_blank">MyFreeMp3</a>
-				<A HREF="https://bestgeek.org/music#/" target="_blank">极客音乐</A>
-				<A HREF="https://infinifi.cafe/" target="_blank">Lofi 电台</A>
-				<A HREF="https://ask.xiaoyuzhoufm.com/" target="_blank">小宇宙广播</A>
-                <a href="https://komiic.com/" target="_blank">Komiic</a>
-                <a href="https://www.hdmoli.pro/" target="_blank">HDmoli</a>
-                <a href="https://soupian.one" target="_blank">搜片</a>
-                <a href="https://xlys01.com" target="_blank">免费影视</a>
-                <a href="https://www.yymanhua.com/" target="_blank">YY 漫画</a>
-                <a href="https://m.agedm.org/" target="_blank">AGE 动漫</a>
+                <div class="nav-links">
+                <a href="http://mc.alger.fun/#/list" target="_blank">网抑云<span>第三方网易云音乐</span></a>
+                <a href="https://qingyinyue.club/" target="_blank">轻音乐俱乐部<span>好听的轻音乐，多得听不完</span></a>
+				<A HREF="https://www.maokan.cc/#header" target="_blank">猫看<span>舒适的白噪音，伴你入眠</span></A>
+                <a href="https://tool.liumingye.cn/music" target="_blank">MyFreeMp3<span>免费听音乐，支持下载</span></a>
+				<A HREF="https://bestgeek.org/music#/" target="_blank">极客音乐<span>免费听音乐</span></A>
+				<A HREF="https://infinifi.cafe/" target="_blank">Lofi Radio<span>低保真音乐电台</span></A>
+				<A HREF="https://ask.xiaoyuzhoufm.com/" target="_blank">小宇宙广播<span>各种各样的有趣广播节目</span></A>
+                <a href="https://komiic.com/" target="_blank">Komiic<span>看漫画的网站</span></a>
+                <a href="https://www.hdmoli.pro/" target="_blank">HDmoli<span>高清影视网站</span></a>
+                <a href="https://soupian.one" target="_blank">搜片<span>支持在线播放和下载电影，不稳定</span></a>
+                <a href="https://www.yymanhua.com/" target="_blank">YY 漫画<span>看漫画的网站</span></a>
+                <a href="https://m.agedm.org/" target="_blank">AGE 动漫<span>免费看动漫</span></a>
+            </div>
             </div>
 <br>
-<!--  网络 -->
-            <div class="nav-card">
+            <!-- 网络 -->
+            <div class="nav-card" id="internet">
                 <i class="material-icons icon-internet ">public</i>
                 <h2>网络</h2>
-                <a href="https://sspai.com" target="_blank">少数派</a>
-                <a href="https://www.cloudflare.com" target="_blank">Cloudflare</a>
-                <a href="https://yandex.ee" target="_blank">Yandex</a>
-                <a href="http://2git.xyz/" target="_blank">Github</a>
-                <a href="http://www.pixiv.net/" target="_blank">Pixiv</a>
-                <a href="https://v2ex.com/" target="_blank">V2EX</a>
-                <a href="https://greasyfork.org/zh-CN" target="_blank">Greasy Fork</a>
+                <div class="nav-links">
+                <a href="https://sspai.com" target="_blank">少数派<span>发现数字产品</span></a>
+                <a href="https://www.cloudflare.com" target="_blank">CloudFlare<span>CDN,WAF,域名注册与网页托管等服务</a>
+                <a href="https://yandex.ee" target="_blank">Yandex<span>俄罗斯的搜索引擎</span></a>
+                <a href="http://2git.xyz/" target="_blank">Github<span>全球最大的开源社区，代码托管平台</span></a>
+                <a href="http://www.pixiv.net/" target="_blank">Pixiv<span>插画和小说等交流服务</span></a>
+                <a href="https://v2ex.com/" target="_blank">V2EX<span>创意工作者的社区</span></a>
+                <a href="https://greasyfork.org/zh-CN" target="_blank">Greasy Fork<span>Javascript用户脚本</span></a>
+            </div>
             </div>
           <br>
             <!-- 人工智能 -->
-            <div class="nav-card">
+            <div class="nav-card" id="ai">
                 <i class="material-icons icon-ai">smart_toy</i>
                 <h2>人工智能</h2>
-                <a href="https://chat.deepseek.com" target="_blank">DeepSeek</a>
-                <a href="https://felo.ai" target="_blank">Felo.ai</a>
-                <a href="https://chat.sensetime.com/" target="_blank">商量商汤大模型</a>
-                <a href="https://datong.info" target="_blank">大同</a>             
-                <a href="https://gemini.u14.app/" target="_blank">Gemini</a>
-				<A HREF="https://claude3.free2gpt.xyz/" target="_blank">Claude</A>
-                <a href="https://hika.fyi/" target="_blank">Hika</a>
-                <a href="https://www.wenxiaobai.com/chat/" target="_blank">问小白</a>
-				<A HREF="https://tanghenre.com/tang/%E5%8D%8A%E6%A0%B9%E7%81%AB%E6%9F%B4" target="_blank">AI海龟汤</A>
-                <a href="https://askmanyai.cn/" target="_blank">AskManyAI</a>
-                <a href="https://yuewen.cn/chats/new" target="_blank">跃问</a>
-				<A HREF="https://app.txyz.ai/" target="_blank">TXYZ</A>
-				<A HREF="https://www.blackbox.ai/" target="_blank">BlackBox</A>
+                <div class="nav-links">
+                <a href="https://chat.deepseek.com" target="_blank">DeepSeek<span>深度求索大模型，需注册</span></a>
+                <a href="https://felo.ai" target="_blank">Felo.ai<span>人工智能搜索引擎</span></a>
+                <a href="https://chat.sensetime.com/" target="_blank">商量商汤大模型<span>不知名的国产大语言模型，需注册</span></a>
+                <a href="http://hailuoai.com" target="_blank">海螺AI<span>Minimax出品的生产力大模型，需注册</span></a>
+                <a href="https://www.doubao.com/chat/" target="_blank">豆包<span>字节跳动旗下的AI大模型，需注册</span></a>                
+                <a href="https://datong.info" target="_blank">大同<span>AI网页搜索引擎，专注于高质量信息</span></a>             
+                <a href="https://gemini.u14.app/" target="_blank">Gemini<span>无需注册和翻墙，免费体验Gemini</span></a>
+				<A HREF="https://claude3.free2gpt.xyz/" target="_blank">Claude<span>免费AI对话（模型现已切换为Gemini）</span></A>
+                <a href="https://hika.fyi/" target="_blank">Hika<span>人工智能搜索引擎</span></a>
+                <a href="https://www.wenxiaobai.com/chat/" target="_blank">问小白<span>元石科技出品的AI大模型，需注册</a>
+				<A HREF="https://tanghenre.com/" target="_blank">汤很热<span>AI驱动的海龟汤游戏</span></A>
+                <a href="https://askmanyai.cn/" target="_blank">AskManyAI<span>聚合型的AI搜索引擎，需注册</span></a>
+                <a href="https://yuewen.cn/chats/new" target="_blank">跃问<span>AI搜索与对话，需注册</span></a>
+				<A HREF="https://app.txyz.ai/" target="_blank">TXYZ<span>AI搜索引擎，需注册</span></A>
+				<A HREF="https://www.blackbox.ai/" target="_blank">BlackBox<span>AI搜索引擎，可以写代码</span></A>
+                <A HREF="https://stabilityai-stable-diffusion-3-medium.hf.space/" target="_blank">Gradio<span>免费体验DALL-E3绘画模型</span></A>
             </div>
         </div>
         <footer>
@@ -526,13 +622,13 @@ body {font-family: LXGW WenKai;}
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('open');
             overlay.classList.toggle('active');
-            sidebarToggle.style.display = 'none'; // 隐藏侧边栏按钮
+            sidebarToggle.style.display = 'none';
         });
 
         overlay.addEventListener('click', () => {
             sidebar.classList.remove('open');
             overlay.classList.remove('active');
-            sidebarToggle.style.display = 'flex'; // 显示侧边栏按钮
+            sidebarToggle.style.display = 'flex';
         });
 
         // 夜间模式切换
@@ -543,9 +639,9 @@ body {font-family: LXGW WenKai;}
             body.classList.toggle('dark-mode');
             const icon = themeToggle.querySelector('i');
             if (body.classList.contains('dark-mode')) {
-                icon.textContent = 'light_mode'; // 切换到太阳图标
+                icon.textContent = 'light_mode';
             } else {
-                icon.textContent = 'dark_mode'; // 切换到月亮图标
+                icon.textContent = 'dark_mode';
             }
         });
 
@@ -560,7 +656,23 @@ body {font-family: LXGW WenKai;}
             }
         });
 
+        // 侧边栏跳转功能
+        const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetId = link.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetSection = document.getElementById(targetId.substring(1));
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                    sidebarToggle.style.display = 'flex';
+                }
+            });
+        });
     </script>
-
 </body>
 </html>
