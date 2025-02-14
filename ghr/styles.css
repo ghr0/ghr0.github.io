@@ -1,0 +1,122 @@
+    body {
+      margin: 0;
+     padding: 0;
+    background-color: #000;
+   color: #fff;
+     overflow-x: hidden;
+    }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 20px auto;
+margin-top: 60px;
+            border: 2px solid #000;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+        }      
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+            75% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .rotate {
+            animation: rotate 1s ease-in-out;
+        }
+
+    a {
+ text-decoration: none;
+   color: #fff;
+animation: Up 0.9s ease forwards;
+    }
+
+    h1 {
+     text-align: center;
+      margin-top: 30px;
+animation: Up 0.9s ease forwards;
+    }
+
+.nav {
+     text-align: center;
+font-size: 21px;
+animation: Up 0.9s ease forwards;
+}
+
+ .list {
+    list-style-type: none;
+  padding: 0px;
+      margin: 30px auto;
+width: 80%;
+max-width: 600px;
+animation: Up 0.9s ease forwards;
+    }
+
+ .list li {
+     background-color: #202020;
+ margin-bottom: 20px;
+      padding: 20px;
+border: 1px solid #fff;
+     border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+animation: Up 0.9s ease forwards;
+    }
+
+ .list li:hover {
+   transform: translateY(-2px);
+animation: Up 0.9s ease forwards;
+    }
+
+ .title {
+      font-size: 16px;
+ margin-bottom: 10px;
+    }
+
+ .time {
+     color: #ccc;
+      font-size: 14px;
+    margin-bottom: 15px;
+    }
+
+ .fy {
+      text-align: center;
+      margin-top: 30px;
+animation: Up 0.9s ease forwards;
+    }
+
+ .fy a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      margin: 0 5px;
+      background-color: #202020;
+border: 1px solid #fff;
+      border-radius: 3px;
+      transition: background-color 0.3s ease;
+animation: Up 0.9s ease forwards;
+    }
+
+        footer {
+            text-align: center;         
+            color: #fff:
+position: relative;
+bottom: 0px;
+animation: Up 0.9s ease forwards;
+        }
+
+        /* 动画 */
+        @keyframes Up {
+            from {
+                transform: translateY(20px);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
