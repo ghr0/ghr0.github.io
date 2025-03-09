@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Kimi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!--字体-->
+    <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/lxgwwenkai-bold.css">
+    <link rel="stylesheet" href="nav.css">
+    <style type="text/css">
+        *{font-family:LXGW WenKai}
+        *{font-weight:bold}
+        body {font-family: LXGW WenKai;}
+    </style>
+
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* 顶部标题和提示信息区域 */
+        .header {
+            text-align: center;
+            padding: 5px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        p {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        /* 聊天记录区域 */
+        .chat-history {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            max-height: calc(100vh - 100px);
+        }
+
+        /* 消息样式 */
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            word-wrap: break-word;
+            max-width: 70%;
+            cursor: pointer; /* 添加鼠标指针样式，提示可点击 */
+        }
+
+        /* 用户消息靠右 */
+        .user-message {
+            background-color: #007bff;
+            color: #fff;
+            float: right;
+            clear: both;
+        }
+
+        /* AI 消息靠左 */
+        .ai-message {
+            background-color: #fff;
+            color: #000;
+            float: left;
+            clear: both;
+        }
+
+        /* 底部输入框区域 */
+        .input-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px;
+            background-color: #f1f4f9;
+            border-top: 1px solid #ccc;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #808080;
+            border-radius: 5px;
+            font-size: 16px;
+            min-width: 0; /* 防止输入框溢出 */
+        }
+
+        /* 新增按钮样式 */
+        .icon-btn {
+
+        }
+
+.delete {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 20px;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+color: red;
+}
+
+.send {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 20px;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+color: #007bff;
+}
+
+        /* 复制提示框样式 */
+        .copy-toast {
+            position: fixed;
+            bottom: 13px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* 媒体查询，适配手机端 */
+        @media (max-width: 600px) {
+            .message {
+                max-width: 80%;
+            }
+
+            .icon-btn {
+                padding: 6px;
+                font-size: 18px;
+            }
+
+            input[type="text"] {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1><i class="fas fa-robot"></i> Kimi</h1>
+        <p>请等待回复完成后再发送下一内容！回车发送，点击对话框复制。调用失败请再试一次。</p>
+    </div>
+    <!-- 聊天记录区域 -->
+    <div class="chat-history" id="chatHistory"></div>
+    <!-- 底部输入框和按钮 -->
+    <div class="input-container">
+        <input type="text" id="userInput" placeholder="输入消息...">
+        <button class="send" id="sendBtn">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+        <button class="delete" id="deleteBtn">
+            <i class="fas fa-trash"></i>
+        </button>
+    </div>
+    <!-- 复制提示框 -->
+    <div class="copy-toast" id="copyToast">已复制</div>
+
+    <script>
+        // 模拟AI回复（实际调用API）
+        async function getAIResponse(userInput) {
+            const apiUrl = `https://api.qster.top/API/v1/MoonshotAi/?msg=${encodeURIComponent(userInput)}`;
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.text();
+                return data;
+            } catch (error) {
+                return "网络故障，请稍后再试";
+            }
+        }
+
+        // 添加消息到对话记录
+        function addMessageToHistory(message, isUser) {
+            const chatHistory = document.getElementById('chatHistory');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(isUser ? 'user-message' : 'ai-message');
+            messageDiv.textContent = message;
+            // 为消息元素添加点击事件监听器
+            messageDiv.addEventListener('click', function () {
+                copyMessageToClipboard(this.textContent);
+            });
+            chatHistory.appendChild(messageDiv);
+            // 滚动到底部
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        // 发送消息
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput').value.trim();
+            if (!userInput) return; // 如果输入为空，直接返回
+
+            // 添加用户消息到对话记录
+            addMessageToHistory(userInput, true);
+
+            // 清空输入框
+            document.getElementById('userInput').value = '';
+
+            // 显示AI回复中提示
+            const loadingMessage = 'AI回复中......';
+            addMessageToHistory(loadingMessage, false);
+
+            // 获取AI回复
+            const aiResponse = await getAIResponse(userInput);
+
+            // 移除AI回复中提示
+            const chatHistory = document.getElementById('chatHistory');
+            const messages = chatHistory.querySelectorAll('.message');
+            for (let i = messages.length - 1; i >= 0; i--) {
+                if (messages[i].textContent === loadingMessage) {
+                    messages[i].remove();
+                    break;
+                }
+            }
+
+            // 添加AI回复到对话记录
+            addMessageToHistory(aiResponse, false);
+        }
+
+        // 删除聊天记录
+        function deleteChatHistory() {
+            const chatHistory = document.getElementById('chatHistory');
+            chatHistory.innerHTML = '';
+        }
+
+        // 复制消息内容到剪贴板并显示提示框
+        function copyMessageToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const copyToast = document.getElementById('copyToast');
+            copyToast.style.opacity = 1;
+            setTimeout(() => {
+                copyToast.style.opacity = 0;
+            }, 1500);
+        }
+
+        // 支持回车键发送
+        document.getElementById('userInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // 添加按钮事件监听
+        document.getElementById('sendBtn').addEventListener('click', sendMessage);
+        document.getElementById('deleteBtn').addEventListener('click', deleteChatHistory);
+    </script>
+</body>
+
+</html>
