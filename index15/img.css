@@ -1,0 +1,51 @@
+body {
+    background-color: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+h2, h3 {
+    color: #007BFF;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="file"], button {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+input[type="file"]:hover, button:hover {
+    background-color: #444;
+    cursor: pointer;
+}
+
+#apiDropdown {
+    background-color: #333;
+}
+
+#apiDropdown a {
+    color: #fff;
+}
+
+#apiDropdown a:hover {
+    background-color: #444;
+}
+
+#result {
+    margin-top: 20px;
+    border: 1px solid #007BFF;
+    padding: 10px;
+    border-radius: 5px;
+}

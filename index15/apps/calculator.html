@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="user-scalable=no">
+    <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/lxgwwenkai-bold.css">
+    <link rel="icon" href="https://fyh2016cjcj.oss-cn-hangzhou.aliyuncs.com/emkt-video/ghr/calculator.png" type="image/png">
+    <style type="text/css">
+        * {
+            font-family: LXGW WenKai;
+        }
+
+        * {
+            font-weight: bold;
+        }
+
+        body {
+            font-family: LXGW WenKai;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.net/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.staticfile.net/jquery/2.2.4/jquery.min.js"></script>
+    <style>
+        html,
+        * {
+            -webkit-user-select: text!important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <h1>计算器</h1>
+        <input type="textbox" class="textbox" readonly="">
+        <div class="buttons">
+            <button class="button" value="AC">C</button>
+            <button class="button" value="CE"><i class="fa fa-long-arrow-left"></i></button>
+            <button class="button" value="%">%</button>
+            <button class="button" value="/">÷</button>
+            <button class="button" value="7">7</button>
+            <button class="button" value="8">8</button>
+            <button class="button" value="9">9</button>
+            <button class="button" value="*">×</button>
+            <button class="button" value="4">4</button>
+            <button class="button" value="5">5</button>
+            <button class="button" value="6">6</button>
+            <button class="button" value="-">-</button>
+            <button class="button" value="1">1</button>
+            <button class="button" value="2">2</button>
+            <button class="button" value="3">3</button>
+            <button class="button" value="+">+</button>
+            <button class="button" value="0">0</button>
+            <button class="button" value="00">00</button>
+            <button class="button" value=".">.</button>
+            <button class="button" value="=">=</button>
+        </div>
+    </div>
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: #000000;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #ffffff;
+            font-size: 2.6em;
+        }
+
+        button {
+            height: 66px;
+            border: none;
+        }
+
+       .calculator {
+            text-align: center;
+            width: 450px;
+            height: 600px;
+border: 2px solid #fff;
+            border-radius: 10px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #222;
+            padding: 5px;
+            animation: fadeInDown 0.6s ease-in-out;
+        }
+
+       .buttons {
+            width: 410px;
+            text-align: center;
+            margin: 40px auto;
+        }
+
+       .button {
+            float: left;
+            margin: 5px;
+            width: 90px;
+            border-radius: 10px;
+            color: #ffffff;
+            background: #333333;
+            font-size: 32px;
+            cursor: pointer;
+        }
+
+       .textbox {
+            text-align: right;
+            font-size: 36px;
+            border: 1;
+            height: 50px;
+            width: 370px;
+            color: #ffffff;
+            background-color: #222222;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+    </style>
+
+    <script>
+        var ans = "";
+        var clear = false;
+        var calc = ""; //初始化数据
+        $(document).ready(function () {
+            $("button").click(function () {
+                var text = $(this).attr("value"); //点击按钮事件发生文本内容为按钮值
+                //如果输入为1-10和加减乘除余
+                if (parseInt(text, 10) == text || text === "." || text === "/" || text === "*" || text === "-" || text === "+" || text === "%") {
+                    //不为空时
+                    if (clear === false) {
+                        calc += text;
+                        $(".textbox").val(calc);
+                    }
+                    //为空时
+                    else {
+                        calc = text;
+                        $(".textbox").val(calc);
+                        clear = false;
+                    }
+                }
+                //按下清除键的时候
+                else if (text === "AC") {
+                    calc = "";
+                    $(".textbox").val(""); //输出空值
+                }
+                //按下回退键时，数组calc保留除最后一个字符外的字符，生成新的字符串
+                else if (text === "CE") {
+                    calc = calc.slice(0, -1);
+                    $(".textbox").val(calc);
+                }
+                //按下等号时用eval()函数计算字符串
+                else if (text === "=") {
+                    ans = eval(calc);
+                    $(".textbox").val(ans);
+                    clear = true;
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

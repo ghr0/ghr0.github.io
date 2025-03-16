@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Image CDN</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/lxgwwenkai-bold.css">
+<style type="text/css">
+*{font-family:LXGW WenKai}
+*{font-weight:bold}
+body {
+font-family: LXGW WenKai;
+background-color: #000;
+color: #fff;
+}
+</style>
+</head>
+<body>
+<h1><i class="fa fa-cloud-upload"></i> CDN</h1>
+<hr>
+<h2><i class="fa fa-search"></i> 选择接口</h2>
+<select id="apiSelect">
+  <option value="huaban">01 - 花瓣</option>
+  <option value="sohu">02 - 搜狐</option>
+  <option value="chaoxing">03 - 超星数字</option>
+  <option value="58pic">04 - 千图</option>
+  <option value="psbc">05 - 中国邮政</option>
+  <option value="cbern">06 - 智慧教育</option>
+  <option value="aippt">07 - AIppt</option>
+  <option value="bankcomm">08 - 交通银行</option>
+</select>
+<h2><i class="fa fa-file"></i> 选择文件</h2>
+<form id="uploadForm" enctype="multipart/form-data">
+  <input type="file" name="file" id="file">
+  <br>
+  <br>
+  <button type="submit"><i class="fa fa-arrow-up"></i> 上传</button>
+</form>
+<h2><i class="fa fa-check-circle"></i> 上传结果</h2>
+<div id="imgup"></div>
+<br>
+<h3><i class="fa fa-warning"></i> 请勿上传违法图片！请勿重复上传相同图片！链接不保证永久有效！上传时，请在页内耐心等待...</h3>
+<h3><i class="fa fa-ban"></i> 文件大小限制未知，接口随时可能失效！</h3>
+<script>
+    $(document).ready(function() {
+        $('#uploadForm').submit(function(event) {
+            event.preventDefault();
+            // 获取选择的接口值
+            const apiType = $('#apiSelect').val();
+            const baseUrl = 'http://api.ilingku.com/int/v1/image.';
+            
+            var formData = new FormData(this);
+            $.ajax({
+                url: baseUrl + apiType,  // 动态拼接接口地址
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                 if(response.code == 200){
+                    alert('文件上传成功');
+                    $("#imgup").html('<input type="text" value="'+response.url+'" style="width:50%;">');
+                 } else {
+                     alert(response.msg);
+                  }
+                },
+                error: function() {
+                    alert('文件上传失败');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

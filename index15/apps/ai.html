@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GLM-Art</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/lxgwwenkai-bold.css">
+  <style>
+    body {
+      background-color: white;
+      color: black;
+      font-family: LXGW WenKai;
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+<h2><i class="fa fa-image"></i> AI绘画&视频生成</h2>
+<hr>
+<h3><i class="fa fa-info-circle"></i> 通过第三方api生成无水印的图像和短视频（模型:智谱清影）</h3>
+<h3><i class="fa fa-warning"></i> 仅供测试，请勿滥用！</h3>
+<i class="fa fa-search"></i>&nbsp
+<select id="apiSelector">
+    <option value="https://api.317ak.com/API/AI/zpai/zphh.php?msg=">绘画#1</option>
+    <option value="https://api.317ak.com/API/AI/zpai/zphh2.php?msg=">绘画#2</option>
+    <option value="https://api.317ak.com/API/AI/zpai/zpsp.php?prompt=">视频</option>
+  </select>
+<br>
+<br>
+<i class="fa fa-commenting"></i>&nbsp
+  <input type="text" id="inputText" placeholder="请输入 prompt">
+  <button id="sendButton">提交</button>
+<br>
+<h3><i class="fa fa-pencil"></i> 结果：</h3>
+  <iframe id="resultFrame"></iframe>
+
+  <script>
+    document.getElementById('sendButton').addEventListener('click', function () {
+      const apiUrl = document.getElementById('apiSelector').value;
+      const inputText = document.getElementById('inputText').value;
+      const fullUrl = apiUrl + inputText;
+      const resultFrame = document.getElementById('resultFrame');
+      resultFrame.src = fullUrl;
+    });
+  </script>
+</body>
+
+</html>

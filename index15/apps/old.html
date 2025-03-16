@@ -1,0 +1,211 @@
+<html>
+<head><title>GHR的主页</title>
+<style>body{background-color:#f0f0f0;}
+       img{width:270px;height:270px;}</style>
+       <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <b><big><big><big><big>&nbsp电子书：</big></big></big></big></b><li><a href="http://www.iyd.wang/">爱悦读网</a>
+        <a href="https://kgbook.com/">苦瓜书盘</a>
+        <a href="https://www.ershu.org/">尔书网</a>
+        <a href="https://toepub.com/zh/">电子书格式转换</a></li>
+        <b><big><big><big><big>&nbsp工具：</big></big></big></big></b><li>
+        <a href="https://ol.woobx.cn/">一个木函</a>
+        <a href="https://igfonts.io/">英文花体字转换</a>
+        <a href="https://4275.com/">文件中转</a>
+        <a href="https://s.201a.cn/">短链接生成</a></li>
+        <a href="https://2git.xyz/">Github</a></li>
+        <b><big><big><big><big>&nbsp音乐·：</big></big></big></big></b><li><a href="https://qingyinyue.club/">轻音乐俱乐部</a>
+        <b><big><big><big><big>&nbsp素材：</big></big></big></big></b><li><a href="https://taira-komori.jpn.org/freesoundcn.html">免费音效</a>
+        <a href="https://vectorcraftr.com">SVG素材库</a>
+        <b><big><big><big><big>&nbsp游戏：</big></big></big></big></b><li>
+        <a href="/"><del>神庙逃亡</del></a>
+        <a href=" ">&nbsp</a></li>
+        <a href=" ">&nbsp</a>
+</div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()"><b><big>&#9776; 我的收藏夹</big></b></span>
+<style>
+    body {
+        font-family: "Lato", sans-serif;
+    }
+    
+    .sidenav {
+        display: none;
+        height: 100%;
+        width: 330px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #d1d1d1;
+        overflow-x: hidden;
+        padding-top: 60px;
+    }
+    
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 30px;
+        color: #000000;
+        display: block;
+    }
+    
+    .sidenav a:hover, .offcanvas a:focus{
+        color: #000;
+    }
+    
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 30px;
+        margin-left: 50px;
+    }
+    
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
+</style>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.display = "block";
+    }
+    
+    function closeNav() {
+        document.getElementById("mySidenav").style.display = "none";
+    }
+</script></head>
+  <div class="container">
+  
+  <br><br>
+  
+    <big><big><big><big><header>
+      <h3>欢迎来到GHR的主页！</h3>
+      
+      <b><div id="times">
+        <script>
+          (function(){
+            function f(i){return i<10?'0'+i:i;}
+            function s(){
+              const D=new Date();
+              document.getElementById('times').innerHTML='时间&nbsp['+f(D.getHours())+':'+f(D.getMinutes())+':'+f(D.getSeconds())+']';
+            }
+            s();
+            setInterval(function(){s();},1000);
+          })();
+        </script>
+      </div></b><br>
+    </header></big></big></big></big>
+    
+    
+     
+      <main>
+      <h1>上海天气</h1>
+      <iframe allowtransparency="true" frameborder="0" width="300" height="150" scrolling="yes" src="https://i.tianqi.com/index.php?c=code&id=142&icon=1&py=shanghai"></iframe>
+     
+     <br>
+     
+      <b><big><h1>Baidu搜索</h1></big></b>
+    <style>
+        body {
+            display: flex;
+            justify-content: left;
+            align-items: left;
+            height: 100vh;
+            margin: 0;  
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: width 0.3s ease;
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px 15px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            flex: 1;
+            background-color: #fff;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #4285F4;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .search-container button:hover {
+            background-color: #357ae8;
+        }
+
+        /* 可自定义大小 */
+        .search-container.small {
+            width: 250px;
+        }
+
+        .search-container.medium {
+            width: 400px;
+        }
+
+        .search-container.large {
+            width: 600px;
+        }
+    </style>
+<div class="search-container medium">
+    <input type="text" placeholder="请输入..">
+    <button onclick="search()">搜索</button>
+</div>
+
+<script>
+    function search() {
+        const input = document.querySelector('.search-container input[type="text"]');
+        const query = encodeURIComponent(input.value.trim());
+        if (query) {
+            window.location.href = 'https://www.baidu.com/s?ie=UTF-8&wd=' + query;
+        } else {
+            alert("请输入搜索内容！");
+        }
+    }
+
+    document.querySelector('.search-container input[type="text"]').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            search();
+        }
+    });
+</script>
+    </main>
+    
+
+
+
+    <img src="https://y.gtimg.cn/music/photo_new/T053M000003OzyrL0LNqz7.png" style="position: absolute; right: 50px; top: 200px;">
+    
+    
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(90vh);
+    opacity: 0.5;
+  }
+}
+</style>
+    
+</html>
